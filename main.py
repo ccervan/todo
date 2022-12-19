@@ -2,12 +2,12 @@ todos = []
 
 
 def show_todos():
-    for i in todos:
-        print(i)
+    for index, i in enumerate(todos):
+        print(f"{index + 1}.{i}")
 
 
 while True:
-    action = input("Type add, show, edit or exit: ")
+    action = input("Type add, show, edit, done or exit: ")
     action = action.strip()
     action = action.lower()
 
@@ -20,13 +20,19 @@ while True:
             show_todos()
         case "edit":
             num = input("Number of item to edit: ")
-            num = int(num)
+            """-1 is to compensate for the plus 1 in the for loop, the enumeration will start at 1 
+            instead of 0"""
+            num = int(num) - 1
             try:
                 item_edit = input("Type the new item which will replace " + "'" + todos[num] + "'" + ": ")
                 todos[num] = item_edit
                 show_todos()
             except IndexError:
                 print("Invalid number")
+        case "done":
+            complete = input("Enter the number of the item completed: ")
+            complete = int(complete)
+            todos.pop(complete - 1)
         case "exit":
             break
         # the _ is a convention Means something else.
