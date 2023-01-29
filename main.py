@@ -1,11 +1,3 @@
-todos = []
-
-
-def show_todos():
-    for index, i in enumerate(todos):
-        print(f"{index + 1}.{i}")
-
-
 while True:
     action = input("Type add, show, edit, done or exit: ")
     action = action.strip()
@@ -14,10 +6,18 @@ while True:
     # match is like Switch in C++
     match action:
         case "add":
-            todo = input("Enter todo: ")
+            todo = input("Enter todo: ") + "\n"
+            file = open("todos.txt", "r")
+            todos = file.readlines()
+            file.close()
             todos.append(todo)
+            file = open("todos.txt", "w")
+            file.writelines(todos)
+            file.close()
         case "show":
-            show_todos()
+            def show_todos():
+                for index, i in enumerate(todos):
+                    print(f"{index + 1}.{i}")
         case "edit":
             num = input("Number of item to edit: ")
             """-1 is to compensate for the plus 1 in the for loop, the enumeration will start at 1 
